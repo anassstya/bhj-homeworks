@@ -9,7 +9,7 @@ function counter() {
     const minutes1 = minutes < 10 ? '0' + minutes : minutes;
     const seconds1 = seconds < 10 ? '0' + seconds : seconds;
     
-    let time = `${hours1}:${minutes1}:${seconds1}`
+    let time = `${hourds}:${minutes1}:${seconds1}`
   
     timer.textContent = time;
     if(seconds >= 0){
@@ -21,7 +21,8 @@ function counter() {
       location.assign('https://www.sanrio.com/collections/hello-kitty');
     }
   }
-  setInterval(updateTimer, 1000)
+  setInterval(updateTimer, 100);
+  clearInterval(updateTimer);
 }
 
 counter()

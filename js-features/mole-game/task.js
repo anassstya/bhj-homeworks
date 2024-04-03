@@ -25,7 +25,7 @@ function mole_Game(){
     }
   }
 
-  for(let i = 1; i<9; i++){
+  for(let i = 1; i<=9; i++){
     const hole = getHole(i);
     hole.onclick = function(){
       check(hole);

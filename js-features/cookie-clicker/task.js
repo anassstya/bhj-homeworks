@@ -19,12 +19,12 @@ function increaseCookie(){
     clicker__counter.textContent = totalClicks;
     updateClickSpeed();
 
-    if(totalClicks % 2){
-      cookie.width = 300;
-      cookie.height = 300;
-    } else {
+    if(clicker__counter.textContent % 2 === 0){
       cookie.width = 250;
       cookie.height = 250;
+    } else{
+      cookie.width = 300;
+      cookie.height = 300;
     }
   }
   cookie.onclick = countClicks;
