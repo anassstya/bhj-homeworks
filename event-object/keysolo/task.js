@@ -16,7 +16,42 @@ class Game {
     this.lossElement.textContent = 0;
   }
 
-  registerEvents() {
+  time(){
+    this.timer = document.getElementById('timer');
+    this.currentSymbol1 = document.querySelectorAll('.symbol')
+    const SymbolArray = Array.from(this.currentSymbol1);
+    this.timer.textContent = SymbolArray.length;
+
+    if(this.timer.textContent == '0'){
+      this.fail();
+      clearInterval(this.intervalId);
+      return;
+    } else{
+      this.intervalId = setInterval(() => {
+        this.timer.textContent -= 1;
+        if(this.timer.textContent == '0'){
+          clearInterval(this.intervalId);
+          this.fail();
+        } 
+        if(this.timer.textContent < 0){
+          this.timer.textContent = 0;
+        }
+        }, 1000);
+    }
+  }
+  
+  registerEvents(){
+    document.addEventListener('keyup', (event) => {
+      const currentSymbolText = this.currentSymbol.textContent.toLowerCase();
+      const inputCharacter = event.key.toLowerCase();
+        if (currentSymbolText === inputCharacter) {
+          this.success();
+        } else {
+          this.fail();
+        }
+      
+        });
+    
     /*
       TODO:
       Написать обработчик события, который откликается
@@ -56,6 +91,9 @@ class Game {
     const word = this.getWord();
 
     this.renderWord(word);
+    
+    clearInterval(this.intervalId);
+    this.time();
   }
 
   getWord() {
@@ -91,4 +129,5 @@ class Game {
 }
 
 new Game(document.getElementById('game'))
+
 
