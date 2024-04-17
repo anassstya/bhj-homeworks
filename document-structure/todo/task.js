@@ -8,21 +8,24 @@ form.addEventListener('submit', (event) => {
   event.preventDefault();
 })
 
-body.addEventListener('keydown', (event) => {
-  if(event.key == 'Enter'){
+button.addEventListener('click', (event) => {
   const task = document.createElement('div');
   task.classList.add('task');
   task.innerHTML = ("<div class='task__title'></div> <a href='#' class='task__remove'>&times;</a>");
   const title = Array.from(task.children)[0];
-  const remove = Array.from(task.children)[1];
-  title.textContent = input.value;
-  form.reset()
-  list.appendChild(task);
+  const remove = Array.from(task.children)[1];  
+  title.textContent = input.value
   
-    remove.addEventListener('click', () => {
-      task.remove()
-    })
-  } 
+  if((title.textContent).trim() !== ''){
+    list.appendChild(task);
+  }
+  
+  form.reset()
+
+  remove.addEventListener('click', () => {
+    task.remove()
+    }) 
+
 })
 
 
