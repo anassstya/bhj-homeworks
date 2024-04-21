@@ -8,22 +8,19 @@ form.addEventListener('submit', (e) => {
   const xhr = new XMLHttpRequest();
   xhr.open('POST', 'https://students.netoservices.ru/nestjs-backend/upload');
 
-  xhr.addEventListener('readystatechange', ()=>{
-    if(xhr.readyState === 2){
-      progress.value = 0,2
-    } else if (xhr.readyState === 3){
-      progress.value = 0,5
-    } else if(xhr.readyState === 4){
-      progress.value = 1
+  xhr.upload.onprogress = function() {
+    progress.value = 0.5; 
+  };
+  
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4) { 
+      progress.value = 1; 
     }
-  })
+  };
+
+  xhr.upload.onerror = function() {
+    progress.value = 0; 
+  };
+
   xhr.send(formData);
-})
-
-
-
-
-
-
-
-
+});

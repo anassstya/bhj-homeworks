@@ -7,11 +7,15 @@ tips.forEach((el, index) => {
   el.addEventListener('click', (event) => {
     event.preventDefault();
 
-    const check= activeTip && activeTip.previousElementSibling === el;
-
-    if (check) {
+    if (activeTip && activeTip.parentElement === el.parentElement) {
       activeTip.classList.toggle('tooltip_active');
-      return; 
+      activeTip = null;
+      return;
+    }
+
+    if (activeTip) {
+      activeTip.classList.toggle('tooltip_active');
+      activeTip = null;
     }
 
     tipText.innerHTML = el.title;
@@ -21,7 +25,6 @@ tips.forEach((el, index) => {
     
     const { top, bottom, left, right } = el.getBoundingClientRect();
     const position = el.getAttribute('data-position');
-
     
     if (position === 'right') {
       tipText.style.left = `${right}px`;
