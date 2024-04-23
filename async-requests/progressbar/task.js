@@ -24,3 +24,4 @@ form.addEventListener('submit', (e) => {
 
   xhr.send(formData);
 });
+

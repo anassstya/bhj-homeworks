@@ -58,3 +58,4 @@ btnsDelete.forEach(el => {
     }
   });
 });
+
