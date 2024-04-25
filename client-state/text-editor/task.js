@@ -1,7 +1,7 @@
 const editor = document.getElementById('editor');
 const btn = document.getElementById('btn');
 
-editor.addEventListener('change', () => {
+editor.addEventListener('input', () => {
   localStorage.setItem('text', editor.value);
 })
 

@@ -9,6 +9,17 @@ form.addEventListener('submit', (event) => {
   event.preventDefault();
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('id')) {
+    user.textContent = localStorage.getItem('id');
+    welcome.classList.add('welcome_active');
+    sign.classList.remove('signin_active');
+  } else {
+    welcome.classList.remove('welcome_active');
+    sign.classList.add('signin_active');
+  }
+});
+
 btn.addEventListener('click', () => {
   let data = new FormData(form); 
 
@@ -17,17 +28,14 @@ btn.addEventListener('click', () => {
   xhr.onload = () => {
     let responsePars = JSON.parse(xhr.response);
 
-    if(localStorage.getItem('id')){
-      user.textContent = localStorage.getItem('id');
+    if (Object.values(responsePars)[0] === true) {
+      let userId = Object.values(responsePars)[1];
+      localStorage.setItem('id', userId);
+      user.textContent = userId;
       welcome.classList.add('welcome_active');
       sign.classList.remove('signin_active');
     } else {
-      if(Object.values(responsePars)[0] === true){
-        let userId = Object.values(responsePars)[1];
-        localStorage.setItem('id', userId);
-      } else {
-        alert('Неверный логин или пароль')
-      }
+      alert('Неверный логин или пароль');
     }  
   }
   xhr.send(data);
@@ -35,4 +43,6 @@ btn.addEventListener('click', () => {
 
 removeBtn.addEventListener('click', () => {
   localStorage.removeItem('id');
+  welcome.classList.remove('welcome_active');
+  sign.classList.add('signin_active');
 })
